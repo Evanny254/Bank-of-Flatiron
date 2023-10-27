@@ -97,20 +97,6 @@
       "category": "Food",
       "amount": "3000",
       "id": 14
-    },
-    {
-      "date": "2023-10-27",
-      "description": "Oktoba Fest",
-      "category": "Entertainment",
-      "amount": "6000",
-      "id": 15
-    },
-    {
-      "date": "2023-10-28",
-      "description": "I am now Tired",
-      "category": "Entertainment",
-      "amount": "1000",
-      "id": 16
     }
   ]
 }
