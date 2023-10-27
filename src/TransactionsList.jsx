@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Transaction from "./Transaction";
 
 function TransactionsList({ transactions, onSort, onDelete }) {
-  
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  function handleDelete(transactionId, callback) {
+    onDelete(transactionId, callback);
+  }
+
   const sortTransactions = (sortType) => {
     return transactions.sort((a, b) => {
       if (a[sortType] < b[sortType]) return -1;
@@ -11,7 +16,6 @@ function TransactionsList({ transactions, onSort, onDelete }) {
     });
   };
 
-  
   const sortedTransactions = onSort ? sortTransactions(onSort) : transactions;
 
   const list = sortedTransactions.map((item) => {
@@ -22,7 +26,9 @@ function TransactionsList({ transactions, onSort, onDelete }) {
         description={item.description}
         category={item.category}
         amount={item.amount}
-        onDelete={() => onDelete(item.id)}
+        onDelete={(transactionId) => handleDelete(transactionId, () => {
+          setIsDeleted(true);
+        })}
       />
     );
   });
@@ -44,10 +50,14 @@ function TransactionsList({ transactions, onSort, onDelete }) {
             <th>
               <button onClick={() => onSort("amount")}>Sort by Amount</button>
             </th>
-            <th>Actions</th>
+            <th>
+              Actions
+            </th>
           </tr>
         </thead>
-        <tbody>{list}</tbody>
+        <tbody>
+          {list}
+        </tbody>
       </table>
     </div>
   );
