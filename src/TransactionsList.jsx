@@ -3,35 +3,59 @@ import Transaction from "./Transaction";
 
 function TransactionsList({ transactions, onSort, onDelete }) {
   const [isDeleted, setIsDeleted] = useState(false);
+  const [sortOrder, setSortOrder] = useState({ type: null, order: 'asc' });
 
   function handleDelete(transactionId, callback) {
     onDelete(transactionId, callback);
   }
+  
 
-  const sortTransactions = (sortType) => {
-    return transactions.sort((a, b) => {
-      if (a[sortType] < b[sortType]) return -1;
-      if (a[sortType] > b[sortType]) return 1;
-      return 0;
+  const sortTransactions = (sortType, order) => {
+    const sortedTransactions = [...transactions];
+
+    sortedTransactions.sort((a, b) => {
+      let comparison = 0;
+
+      if (a[sortType] < b[sortType]) {
+        comparison = -1;
+      } else if (a[sortType] > b[sortType]) {
+        comparison = 1;
+      }
+
+      if (order === 'desc') {
+        comparison *= -1;
+      }
+
+      return comparison;
     });
+
+    return sortedTransactions;
   };
 
-  const sortedTransactions = onSort ? sortTransactions(onSort) : transactions;
+  const toggleSortOrder = (type) => {
+    const newSortOrder = {
+      type: type,
+      order: sortOrder.type === type && sortOrder.order === 'asc' ? 'desc' : 'asc',
+    };
+    setSortOrder(newSortOrder);
+    return newSortOrder;
+  };
+
+  const sortedTransactions = onSort ? sortTransactions(sortOrder.type, sortOrder.order) : transactions;
 
   const list = sortedTransactions.map((item) => {
     return (
       <Transaction
-        key={item.id}
-        date={item.date}
-        description={item.description}
-        category={item.category}
-        amount={item.amount}
-        onDelete={(transactionId) => handleDelete(transactionId, () => {
-          setIsDeleted(true);
-        })}
-      />
-    );
-  });
+      key={item.id}
+      transactionId={item.id} 
+      date={item.date}
+      description={item.description}
+      category={item.category}
+      amount={item.amount}
+      onDelete={handleDelete} 
+    />
+  );
+});
 
   return (
     <div className="table-container">
@@ -39,16 +63,16 @@ function TransactionsList({ transactions, onSort, onDelete }) {
         <thead>
           <tr>
             <th>
-              <button onClick={() => onSort("date")}>Sort by Date</button>
+              <button onClick={() => onSort(toggleSortOrder("date"))}>Sort by Date</button>
             </th>
             <th>
-              <button onClick={() => onSort("description")}>Sort by Description</button>
+              <button onClick={() => onSort(toggleSortOrder("description"))}>Sort by Description</button>
             </th>
             <th>
-              <button onClick={() => onSort("category")}>Sort by Category</button>
+              <button onClick={() => onSort(toggleSortOrder("category"))}>Sort by Category</button>
             </th>
             <th>
-              <button onClick={() => onSort("amount")}>Sort by Amount</button>
+              <button onClick={() => onSort(toggleSortOrder("amount"))}>Sort by Amount</button>
             </th>
             <th>
               Actions
