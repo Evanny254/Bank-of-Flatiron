@@ -10,6 +10,7 @@ function Search({ handleSearch, searchTerm }) {
         value={searchTerm}
         onChange={(e) => handleSearch(e.target.value)}
       />
+
     </div>
   );
 }
