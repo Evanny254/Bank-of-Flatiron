@@ -111,20 +111,6 @@
       "category": "Entertainment",
       "amount": "1000",
       "id": 16
-    },
-    {
-      "date": "2023-10-29",
-      "description": "Sin city",
-      "category": "Entertainment",
-      "amount": "10000",
-      "id": 17
-    },
-    {
-      "date": "2023-10-28",
-      "description": "Ni Leo",
-      "category": "Entertainment",
-      "amount": "2000",
-      "id": 18
     }
   ]
 }
