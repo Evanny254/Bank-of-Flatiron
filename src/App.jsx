@@ -1,6 +1,6 @@
 import React from "react";
 import './App.css';
-import AccountContainer from "./AccountContainer";
+import AccountContainer from "./AccountContainer.jsx";
 
 function App() {
   return (
