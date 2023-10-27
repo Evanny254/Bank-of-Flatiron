@@ -6,18 +6,46 @@ import AddTransactionForm from "./AddTransactionForm";
 function AccountContainer() {
   const [transactions, setTransactions] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortType, setSortType] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:3000/transactions?q=${searchTerm}`)
+    
+    fetch(`http://localhost:3000/transactions?q=${searchTerm}&sort=${sortType}`)
       .then((resp) => resp.json())
       .then((data) => setTransactions(data));
-  }, [searchTerm]);
+  }, [searchTerm, sortType]);
+
+  function handleSearch(searchTerm) {
+    setSearchTerm(searchTerm);
+  }
+
+  function handleSort(sortType) {
+    setSortType(sortType);
+  }
+
+  
+  function handleDelete(transactionId) {
+    
+    fetch(`http://localhost:3000/transactions/${transactionId}`, {
+      method: "DELETE",
+    }).then(() => {
+      
+      const updatedTransactions = transactions.filter(
+        (transaction) => transaction.id !== transactionId
+      );
+      setTransactions(updatedTransactions);
+    });
+  }
 
   return (
     <div>
-      <Search handleSearch={setSearchTerm} searchTerm={searchTerm} />
+      <Search handleSearch={handleSearch} searchTerm={searchTerm} />
       <AddTransactionForm />
-      <TransactionsList transactions={transactions} />
+      <TransactionsList
+        transactions={transactions}
+        onSort={handleSort}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }
