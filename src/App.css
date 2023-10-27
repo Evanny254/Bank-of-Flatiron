@@ -126,7 +126,15 @@ body {
   border: 1px solid #ccc;
   padding: 10px;
 }
-
+.deleteBtn {
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
 
 
 
