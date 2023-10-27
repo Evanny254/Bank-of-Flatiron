@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Transaction({ date, description, category, amount }) {
+function Transaction({ transactionId, date, description, category, amount, onDelete }) {
   const [isDeleted, setIsDeleted] = useState(false);
 
   function handleDelete() {
