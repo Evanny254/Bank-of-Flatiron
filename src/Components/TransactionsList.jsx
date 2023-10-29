@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Transaction from "./Transaction";
 
 function TransactionsList({ transactions, onSort, onDelete }) {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Transaction from "./Transaction.jsx";
+import Transaction from "./Transaction";
 
 function AddTransactionForm() {
   const [date, setDate] = useState("");

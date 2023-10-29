@@ -25,7 +25,7 @@ If you're unfamiliar with HTML tables, you can refer to this example in the docu
 
 ## Endpoints
 
-The base URL for your backend is: `http://localhost:3000`
+The base URL for your backend is: `http://localhost:5173`
 
 ## Core Deliverables
 
